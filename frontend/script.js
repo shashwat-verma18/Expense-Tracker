@@ -1,4 +1,6 @@
-function submitForm(e) {
+const url = `http://localhost:4000`;
+
+function signUp(e) {
 
     e.preventDefault();
 
@@ -37,7 +39,25 @@ function submitForm(e) {
         else if(!hasSpecialCharacter)
             document.getElementById('passwordMain').innerText = 'Password should have atleast one special character';
     
-        else
-            alert("Name: " + name + "\nEmail: " + email + "\nPassword: " + password);
+        else{
+
+            
+            let obj = {
+                name,
+                email,
+                password
+            }
+
+            console.log(obj);
+
+            axios.post(`${url}/users/addUser`, obj)
+                .then(respond => {
+                    console.log(respond);
+                    alert(`respond`);
+                    window.top.location = window.top.location;
+                })
+                .catch(err => console.log(err));
+
+        }
     }
 }

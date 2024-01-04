@@ -43,6 +43,24 @@ input {
     background-color: #45a049;
 }
 
+#switchP{
+    margin-top: 0px;
+    font-size: 13px;
+}
+
+#switchLink {
+    color: #4caf50;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#switchLink:hover{
+    color: #45a049;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
 .error-message {
     color: #ff0000;
     margin-top: -10px;
