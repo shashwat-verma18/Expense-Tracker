@@ -25,8 +25,6 @@ function signUp(e) {
         var hasLowercase = /[a-z]/.test(password);
         var hasSpecialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
 
-        console.log(password.length, hasLowercase, hasUppercase, hasUppercase);
-        
         if(password.length < minLength)
             document.getElementById('passwordMain').innerText = 'Password should have 8 characters';
 
@@ -48,13 +46,18 @@ function signUp(e) {
                 password
             }
 
-            console.log(obj);
-
             axios.post(`${url}/users/addUser`, obj)
                 .then(respond => {
-                    console.log(respond);
-                    alert(`respond`);
-                    window.top.location = window.top.location;
+
+                    var msg = respond.data.message;
+                    var check = respond.data.check;
+
+                    alert(`${msg}`);
+
+                    if(check)
+                        window.location.replace("./login.html");
+                    else
+                        window.top.location = window.top.location;
                 })
                 .catch(err => console.log(err));
 
