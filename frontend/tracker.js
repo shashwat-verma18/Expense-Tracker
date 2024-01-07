@@ -111,3 +111,36 @@ function deleteItem(e) {
 
     }
 }
+
+function premium(e){
+    let token = localStorage.getItem('token');
+
+    axios.get(`${url}/purchase/premiumMembership`, {headers: {"Authorization" : token}})
+        .then(respond => {
+            console.log(respond);
+
+            var options = {
+                "key": respond.data.key_id,
+                "order_id": response.data.order.id,
+                "handler": axios.post(`${url}/purchase/updateTransactionStatus`, {
+                                order_id: options.order_id,
+                                payment_id: response.razorpay_payment_id
+                            }, {headers: {"Authorization" : token}})
+                            .then(() => {
+                                alert('You are a Premium User Now');
+                            })
+                            .catch(err => console.log(err))
+            };
+            
+            const rzp1 = new Razorpay(options);
+            rzp1.open();
+            e.preventDefault();
+
+            rzp1.on('payment.failed', function(response){
+                console.log(response);
+                alert('Something went wrong');
+            })
+        })
+        .catch(err => console.log(err));
+    
+}
