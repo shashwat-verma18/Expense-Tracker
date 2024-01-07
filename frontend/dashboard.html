@@ -3,35 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <title>Expense Tracker Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <script src="tracker.js"></script>
 </head>
 <body>
-    <div class="dashboard-container">
-        <header>
-            <h1>Expense Tracker</h1>
-            <button class="logout-button">Logout</button>
-        </header>
+    
+    <ul id="nav">
+        <li class="nav_li" id="active"><a class="li_href" href="dashboard.html">Dashboard</a></li>
+        <li class="nav_li"><a class="li_href" href="addExpense.html">Add Expense</a></li>
+        <button id="logout" onclick="logOut()">Log Out</button>
+    </ul>
 
+    <div class="container">
+<!-- 
         <section class="overview">
-            <h2>Overview</h2>
-            <!-- Display summary information like total expenses, income, etc. -->
-        </section>
+            <h3>Overview</h3>
+
+            <div id="overviews">
+                
+            </div>
+            
+        </section> -->
 
         <section class="expenses">
-            <h2>Expenses</h2>
-            <!-- Display a list of recent expenses with details -->
+            <h3>Expenses</h3>
+            
+            <p id='dashMsg' class="error-message"></p>
+            <ul id="listExpenses">
+
+            </ul>
+
         </section>
 
-        <section class="income">
-            <h2>Income</h2>
-            <!-- Display a list of recent income with details -->
-        </section>
-
-        <section class="categories">
-            <h2>Categories</h2>
-            <!-- Display a breakdown of expenses by categories -->
-        </section>
     </div>
+
+    
 </body>
 </html>

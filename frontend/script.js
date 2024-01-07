@@ -83,10 +83,9 @@ function logIn(e) {
     axios.post(`${url}/users/loginUser`, obj)
         .then(respond => {
 
-            const message = respond.data.message;
-
-            
-            document.getElementById('loginMessage').innerText = `${message}`;
+            let token = respond.data.token;
+            localStorage.setItem('token', token);
+            window.location.replace("./dashboard.html");
 
         })
         .catch(err => {

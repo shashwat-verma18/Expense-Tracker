@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Add Expense</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-    <script src="script.js"></script>
+    <script src="tracker.js"></script>
 </head>
 <body>
+    
+    <ul id="nav">
+        <li class="nav_li"><a class="li_href" href="dashboard.html">Dashboard</a></li>
+        <li class="nav_li" id="active"><a class="li_href" href="addExpense.html">Add Expense</a></li>
+        <button id="logout" onclick="logOut()">Log Out</button>
+    </ul>
+
     <div class="container">
 
-        <form id="signupForm" onsubmit="signUp(event)" method="POST">
+        <form id="myForm" onsubmit="addExpense(event)" method="POST">
             <label for="amount">Amount:</label>
             <div class="input-group-text">
                 <div id="sym">

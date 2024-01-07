@@ -2,13 +2,15 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f0f0;
     text-align: center;
-    padding: 50px;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     max-width: 400px;
     margin: 0 auto;
     background: #fff;
+    margin-top: 60px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -81,7 +83,6 @@ li {
 
 }
  
-/* new css */
 .dashboard-container {
     max-width: 1200px;
     margin: 20px auto;
@@ -148,4 +149,79 @@ h2 {
     border-bottom-left-radius: 0px;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+}
+
+/* new css */
+
+#nav{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4caf4fc0;
+}
+
+
+
+.nav_li{
+    float: left;
+}
+
+.nav_li, .li_href{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 12px;
+    margin: 0;
+    text-decoration: none;
+}
+
+.nav_li:hover:not(#active){
+    background-color: #4caf50;
+}
+
+#logout{
+    background-color: #4caf50;
+    cursor: pointer;
+    width: max-content;
+    color: white;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+}
+
+#logout:hover {
+    background-color: #45a049;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+#active {
+    background-color: #4caf50;
+}
+
+#listExpenses{
+    list-style-type: none;
+}  
+
+.liExpenses{
+    text-align: left;
+    color: #4f4f4f;
+}
+
+#deleteBtn{
+    background-color: #e11212;
+    width: max-content;
+    color: white;
+    padding: 7px;
+    border: none;
+    margin-left: 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 12px;
+
 }
