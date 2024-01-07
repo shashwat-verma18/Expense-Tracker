@@ -34,7 +34,8 @@ exports.loginUser = async (req, res, next) => {
         }else{
             
             if(await bcrypt.compare(password, user.password)){
-                res.status(200).json({message : "User Login Successfully !", token: generateToken(user.id)});
+
+                res.status(200).json({message : "User Login Successfully !", token: generateToken(user.id), premium: user.isPremium});
             }
             else{
                 res.status(401).json({message: "User not authorized", display : "Incorrect email or password"});

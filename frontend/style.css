@@ -214,6 +214,7 @@ h2 {
 #deleteBtn{
     background-color: #e11212;
     width: max-content;
+    margin-top: -5px;
     color: white;
     padding: 7px;
     border: none;

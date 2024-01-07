@@ -84,7 +84,11 @@ function logIn(e) {
         .then(respond => {
 
             let token = respond.data.token;
+            let premium = respond.data.premium;
+
             localStorage.setItem('token', token);
+            localStorage.setItem('premium', premium);
+            
             window.location.replace("./dashboard.html");
 
         })
