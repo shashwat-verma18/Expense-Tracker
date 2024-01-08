@@ -219,8 +219,10 @@ function loadLeaderboard() {
 
 function showLeaderboardElement(obj) {
 
+    console.log(obj);
+
     var name = obj.name;
-    var amt = obj.total_cost;
+    var amt = obj.total_amount;
 
     if(amt === null)
         amt = 0;
@@ -244,6 +246,9 @@ function showLeaderboardElement(obj) {
     
     li.style.padding = '3px';
     list.appendChild(li);
+
+    var br = document.createElement('br');
+    list.append(br);
 
 
 }

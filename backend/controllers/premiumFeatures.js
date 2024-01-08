@@ -11,8 +11,6 @@ exports.showLeaderboard = async (req, res) => {
             order: [['total_amount', 'DESC']]
         });
 
-        console.log(userLeaderboard);
-
         res.status(200).json({ userLeaderboard });
 
     } catch (err) {

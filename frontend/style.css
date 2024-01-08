@@ -203,6 +203,7 @@ h2 {
 }
 
 .listExpenses{
+    padding-left: 0px;
     list-style-type: none;
     text-align: left;
     color: #4f4f4f;
@@ -220,6 +221,5 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     float: right;
-    margin-right: 12px;
 
 }
