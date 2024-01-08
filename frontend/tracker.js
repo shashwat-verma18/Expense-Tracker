@@ -1,5 +1,7 @@
 const url = `http://localhost:4000`;
 
+var leaderBoardStatus = false;
+
 function addExpense(e) {
 
     e.preventDefault();
@@ -24,10 +26,17 @@ function addExpense(e) {
 
 }
 
+
 window.addEventListener("DOMContentLoaded", () => {
     let token = localStorage.getItem('token');
     if (!token) {
         window.location.replace("./login.html");
+    }
+
+    let decodeToken = parseJwt(token);
+
+    if (decodeToken.isPremium) {
+        showPremiumUser();
     }
 
     axios.get(`${url}/expense/getExpenses`, { headers: { "Authorization": token } })
@@ -43,50 +52,14 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch(err => console.log(err));
+
+    loadLeaderboard();
 });
 
 function logOut() {
     localStorage.removeItem('token');
     history.replaceState(null, null, document.URL);
     window.location.replace("./login.html");
-}
-
-function showExpense(obj) {
-
-    var id = obj.id;
-    var amount = obj.amount;
-    var des = obj.description;
-    var cat = obj.category;
-
-    var val;
-
-    if (des === '')
-        val = '₹' + amount + ' - ' + cat;
-    else
-        val = '₹' + amount + ' - ' + des + ' - ' + cat;
-
-    var list = document.getElementById('listExpenses');
-
-    var li = document.createElement('li');
-    li.appendChild(document.createTextNode(val));
-
-    var deleteBtn = document.createElement('button');
-    deleteBtn.id = 'deleteBtn';
-    deleteBtn.onclick = deleteItem;
-    deleteBtn.appendChild(document.createTextNode('Delete'));
-    li.appendChild(deleteBtn);
-
-
-    var invDiv = document.createElement('div');
-    invDiv.appendChild(document.createTextNode(`- ${id}`));
-    invDiv.style.visibility = 'hidden';
-    invDiv.style.float = 'right';
-    invDiv.id = 'invTxt';
-    li.appendChild(invDiv);
-
-    li.style.padding = '10px';
-    list.appendChild(li);
-
 }
 
 function deleteItem(e) {
@@ -129,7 +102,10 @@ function premium(e) {
                         check: true
                     }, { headers: { "Authorization": token } });
 
+
                     alert('You are a Premium User Now');
+
+                    showPremiumUser();
                 },
             };
 
@@ -149,5 +125,114 @@ function premium(e) {
             })
         })
         .catch(err => console.log(err));
+
+}
+
+function showExpense(obj) {
+
+    var id = obj.id;
+    var amount = obj.amount;
+    var des = obj.description;
+    var cat = obj.category;
+
+    var val;
+
+    if (des === '')
+        val = '₹' + amount + ' - ' + cat;
+    else
+        val = '₹' + amount + ' - ' + des + ' - ' + cat;
+
+    var list = document.getElementById('listExpenses');
+
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(val));
+
+    var deleteBtn = document.createElement('button');
+    deleteBtn.id = 'deleteBtn';
+    deleteBtn.onclick = deleteItem;
+    deleteBtn.appendChild(document.createTextNode('Delete'));
+    li.appendChild(deleteBtn);
+
+
+    var invDiv = document.createElement('div');
+    invDiv.appendChild(document.createTextNode(`- ${id}`));
+    invDiv.style.visibility = 'hidden';
+    invDiv.style.float = 'right';
+    invDiv.id = 'invTxt';
+    li.appendChild(invDiv);
+
+    li.style.padding = '10px';
+    list.appendChild(li);
+
+}
+
+function showPremiumUser() {
+    document.getElementById('premiumMsg').style.display = 'block';
+    document.getElementById('leaderBoard').style.display = 'block';
+    document.getElementById('premium').style.display = 'none';
+}
+
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+
+function showLeaderboard(e) {
+
+    if (!leaderBoardStatus) {
+
+        document.getElementById('leaderBoard').innerHTML = 'Hide LeaderBoard';
+        leaderBoardStatus = true;
+
+        document.getElementById('leaderTitle').style.display = 'block';
+        document.getElementById('listLeaderboard').style.display = 'block';
+
+    } else {
+        document.getElementById('leaderBoard').innerHTML = 'Show LeaderBoard';
+        leaderBoardStatus = false;
+
+
+        document.getElementById('leaderTitle').style.display = 'none';
+        document.getElementById('listLeaderboard').style.display = 'none';
+    }
+}
+
+function loadLeaderboard() {
+    const token = localStorage.getItem('token');
+
+    axios.get(`${url}/purchase/showLeaderboard`, { headers: { "Authorization": token } })
+        .then(respond => {
+
+            for (var i = 0; i < respond.data.userLeaderboard.length; i++) {
+                showLeaderboardElement(respond.data.userLeaderboard[i]);
+            }
+
+        })
+        .catch(err => console.log(err));
+}
+
+function showLeaderboardElement(obj) {
+
+    var name = obj.name;
+    var amt = obj.total_cost;
+
+    if(amt === null)
+        amt = 0;
+
+    var val = `Name : ${name}  \u2003 \u2003 Total Expense : ₹${amt}`;
+
+    var list = document.getElementById('listLeaderboard');
+
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(val));
+
+    li.style.padding = '3px';
+    list.appendChild(li);
+
 
 }

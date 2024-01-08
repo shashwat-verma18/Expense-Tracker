@@ -35,7 +35,7 @@ exports.loginUser = async (req, res, next) => {
             
             if(await bcrypt.compare(password, user.password)){
 
-                res.status(200).json({message : "User Login Successfully !", token: generateToken(user.id), premium: user.isPremium});
+                res.status(200).json({message : "User Login Successfully !", token: generateToken(user.id, user.isPremium)});
             }
             else{
                 res.status(401).json({message: "User not authorized", display : "Incorrect email or password"});
@@ -48,6 +48,6 @@ exports.loginUser = async (req, res, next) => {
 
 }
 
-function generateToken(id){
-    return jwt.sign({userId: id},  process.env.TOKEN_SECRET);
+function generateToken(id, isPremium){
+    return jwt.sign({userId: id, isPremium},  process.env.TOKEN_SECRET);
 }

@@ -16,6 +16,8 @@
         <li class="nav_li"><a class="li_href" href="addExpense.html">Add Expense</a></li>
         <button id="logout" class="logOut" onclick="logOut()">Log Out</button>
         <button id="premium" class="logOut" onclick="premium(event)">Buy Premium</button>
+        <button id="leaderBoard" class="logOut" onclick="showLeaderboard(event)" style="display: none;">Show LeaderBoard</button>
+        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>
     </ul>
 
     <div class="container">
@@ -33,7 +35,15 @@
             <h3>Expenses</h3>
             
             <p id='dashMsg' class="error-message"></p>
-            <ul id="listExpenses">
+            <ul id="listExpenses" class="listExpenses">
+
+            </ul>
+
+        </section>
+
+        <section class="leaderBoards">
+            <h3 id='leaderTitle' style="display: none;">Leaderboard</h3>
+            <ul id="listLeaderboard" class="listExpenses" style="display: none;">
 
             </ul>
 

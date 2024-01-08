@@ -202,14 +202,12 @@ h2 {
     background-color: #4caf50;
 }
 
-#listExpenses{
+.listExpenses{
     list-style-type: none;
-}  
-
-.liExpenses{
     text-align: left;
     color: #4f4f4f;
-}
+}  
+
 
 #deleteBtn{
     background-color: #e11212;
