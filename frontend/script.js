@@ -99,7 +99,8 @@ function logIn(e) {
 
 }
 
-function forgotPassword(e) {
+async function forgotPassword(e) {
+    try{
     e.preventDefault();
 
     
@@ -111,18 +112,16 @@ function forgotPassword(e) {
         email
     }
 
-    axios.post(`${url}/users/password/getUser`, obj)
-    .then(respond => {
-        console.log(respond);
-        axios.post(`${url}/users/password/resetPassword`, obj)
-        .then(respond => {
-            alert(`Mail sent successfully`);
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => {
+    const user  = await axios.post(`${url}/users/password/getUser`, obj);
+
+    if(user){
+        const respond = await axios.post(`${url}/users/password/resetPassword`, user.data.user);
+        alert(`Reset Link sent successfully`);
+    }else{
         document.getElementById('forgotPasswordMessage').innerHTML = 'Email id is not registered !';
+    }
+    }catch(err){
         console.log(err);
-    });
+    }
     
 }

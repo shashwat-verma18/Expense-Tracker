@@ -13,6 +13,7 @@ dotenv.config();
 const User = require('./models/userModel');
 const Expense = require('./models/expenseModel');
 const Order = require('./models/orderModel');
+const ForgetPasswordRequests = require('./models/forgotPasswordRequestsModel');
 
 const userRoute = require('./routes/userRoutes');
 const expenseRoute = require('./routes/expenseRoutes');
@@ -29,7 +30,7 @@ app.use('/purchase', purchaseRoute);
 User.hasMany(Expense);
 Expense.belongsTo(User, { constraints: true, onDelete: 'CASCADE', foreignKey: 'userId' });
 User.hasMany(Order, { constraints: true, onDelete: 'CASCADE', foreignKey: 'userId' });
-
+User.hasMany(ForgetPasswordRequests);
 
 sequelize
 .sync()
