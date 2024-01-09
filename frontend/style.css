@@ -223,3 +223,16 @@ h2 {
     float: right;
 
 }
+
+#switchLinkPassword{
+    color: #5b4caf;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#switchLinkPassword:hover{
+    color: #534893;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: underline;
+}

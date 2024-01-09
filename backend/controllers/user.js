@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-exports.addUser = async (req, res, next) => {
+exports.addUser = async (req, res) => {
 
     const name = req.body.name;
     const email = req.body.email;
@@ -21,7 +21,7 @@ exports.addUser = async (req, res, next) => {
 
 };
 
-exports.loginUser = async (req, res, next) => {
+exports.loginUser = async (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;

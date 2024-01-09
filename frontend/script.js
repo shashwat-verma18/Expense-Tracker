@@ -84,10 +84,8 @@ function logIn(e) {
         .then(respond => {
 
             let token = respond.data.token;
-            let premium = respond.data.premium;
 
             localStorage.setItem('token', token);
-            localStorage.setItem('premium', premium);
             
             window.location.replace("./dashboard.html");
 
@@ -99,4 +97,32 @@ function logIn(e) {
             
         });
 
+}
+
+function forgotPassword(e) {
+    e.preventDefault();
+
+    
+    document.getElementById('forgotPasswordMessage').innerHTML = '';
+
+    var email = document.getElementById('email_login').value;
+
+    let obj = {
+        email
+    }
+
+    axios.post(`${url}/users/password/getUser`, obj)
+    .then(respond => {
+        console.log(respond);
+        axios.post(`${url}/users/password/resetPassword`, obj)
+        .then(respond => {
+            alert(`Mail sent successfully`);
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => {
+        document.getElementById('forgotPasswordMessage').innerHTML = 'Email id is not registered !';
+        console.log(err);
+    });
+    
 }
