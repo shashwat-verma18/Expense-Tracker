@@ -15,39 +15,13 @@
         <li class="nav_li"><a class="li_href" href="addExpense.html">Add Expense</a></li>
         <li class="nav_li" id="active"><a id="report" class="li_href" href="reportGeneration.html" style="display:none;">Report Generation</a></li>
         <button id="logout" class="logOut" onclick="logOut()">Log Out</button>
-        <button id="leaderBoard" class="logOut" onclick="showLeaderboard(event)" style="display: none;">Download Report</button>
-        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>    </ul>
+        <button id="leaderBoard" class="logOut" onclick="downloadReport(event)" style="display: none;">Download Report</button>
+        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>    
+    </ul>
 
-    <div class="container">
-<!-- 
-        <section class="overview">
-            <h3>Overview</h3>
+    <h3 style="color: rgb(0, 139, 194);">Day to Day Expenses</h3>
+    
 
-            <div id="overviews">
-                
-            </div>
-            
-        </section> -->
-
-        <section class="expenses">
-            <h3>Expenses</h3>
-            
-            <p id='dashMsg' class="error-message"></p>
-            <ul id="listExpenses" class="listExpenses">
-
-            </ul>
-
-        </section>
-
-        <section class="leaderBoards">
-            <h3 id='leaderTitle' style="display: none;">Leaderboard</h3>
-            <ul id="listLeaderboard" class="listExpenses" style="display: none;">
-                
-            </ul>
-
-        </section>
-
-    </div>
 
     
 </body>
