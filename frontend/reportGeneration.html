@@ -7,19 +7,16 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" defer></script>
     <script src="tracker.js" defer></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 </head>
 <body>
     
     <ul id="nav">
-        <li class="nav_li" id="active"><a class="li_href" href="dashboard.html">Dashboard</a></li>
+        <li class="nav_li"><a class="li_href" href="dashboard.html">Dashboard</a></li>
         <li class="nav_li"><a class="li_href" href="addExpense.html">Add Expense</a></li>
-        <li class="nav_li"><a id="report" class="li_href" href="reportGeneration.html" style="display:none;">Report Generation</a></li>
+        <li class="nav_li" id="active"><a id="report" class="li_href" href="reportGeneration.html" style="display:none;">Report Generation</a></li>
         <button id="logout" class="logOut" onclick="logOut()">Log Out</button>
-        <button id="premium" class="logOut" onclick="premium(event)">Buy Premium</button>
-        <button id="leaderBoard" class="logOut" onclick="showLeaderboard(event)" style="display: none;">Show LeaderBoard</button>
-        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>
-    </ul>
+        <button id="leaderBoard" class="logOut" onclick="showLeaderboard(event)" style="display: none;">Download Report</button>
+        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>    </ul>
 
     <div class="container">
 <!-- 

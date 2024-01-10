@@ -168,9 +168,17 @@ function showExpense(obj) {
 }
 
 function showPremiumUser() {
-    document.getElementById('premiumMsg').style.display = 'block';
-    document.getElementById('leaderBoard').style.display = 'block';
-    document.getElementById('premium').style.display = 'none';
+    try{
+        document.getElementById('premiumMsg').style.display = 'block';
+        document.getElementById('leaderBoard').style.display = 'block';
+        document.getElementById('report').style.display = 'block';
+        document.getElementById('premium').style.display = 'none';
+    }catch(err){
+        document.getElementById('premiumMsg').style.display = 'block';
+        document.getElementById('report').style.display = 'block';
+        document.getElementById('premium').style.display = 'none';
+        console.log(err);
+    }
 }
 
 function parseJwt(token) {

@@ -10,8 +10,10 @@ router.post('/addUser', userController.addUser);
 
 router.post('/loginUser', userController.loginUser);
 
-router.post('/password/getUser', passwordController.getUser);
+router.post('/password/forgotPassword', passwordController.resetPassword);
 
-router.post('/password/resetPassword', passwordController.resetPassword);
+router.get('/password/resetPassword/:id', passwordController.viewPage);
+
+router.post('/password/updatePassword', passwordController.updatePassword);
 
 module.exports = router;

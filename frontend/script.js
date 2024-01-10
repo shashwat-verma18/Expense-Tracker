@@ -112,10 +112,9 @@ async function forgotPassword(e) {
         email
     }
 
-    const user  = await axios.post(`${url}/users/password/getUser`, obj);
+    const forgotEmail  = await axios.post(`${url}/users/password/forgotPassword`, obj);
 
-    if(user){
-        const respond = await axios.post(`${url}/users/password/resetPassword`, user.data.user);
+    if(forgotEmail.data.status){
         alert(`Reset Link sent successfully`);
     }else{
         document.getElementById('forgotPasswordMessage').innerHTML = 'Email id is not registered !';

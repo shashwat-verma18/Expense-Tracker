@@ -6,15 +6,17 @@
     <title>Add Expense</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-    <script src="tracker.js"></script>
+    <script src="tracker.js" defer></script>
 </head>
 <body>
     
     <ul id="nav">
         <li class="nav_li"><a class="li_href" href="dashboard.html">Dashboard</a></li>
         <li class="nav_li" id="active"><a class="li_href" href="addExpense.html">Add Expense</a></li>
+        <li class="nav_li"><a id="report" class="li_href" href="reportGeneration.html" style="display:none;">Report Generation</a></li>
         <button id="logout" class="logOut" onclick="logOut()">Log Out</button>
-        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>
+        <p id="premiumMsg" style="float: right; margin-top: 17px; display: none;">You are a Premium User !</p>    </ul>
+
     </ul>
 
     <div class="container">

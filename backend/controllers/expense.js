@@ -23,7 +23,7 @@ exports.addExpense = async (req, res, next) => {
         await User.update({
             total_amount: total
         }, {
-            where: { id: userId },
+            where: { id: userId  },
             transaction: t
         });
 
@@ -55,8 +55,6 @@ exports.deleteExpense = async (req, res, next) => {
 
     const id = req.params.id;
     const userId = req.user.id;
-
-    console.log(id + " : " + userId);
 
     try {
 
