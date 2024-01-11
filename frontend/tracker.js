@@ -38,25 +38,41 @@ window.addEventListener("DOMContentLoaded", () => {
     let decodeToken = parseJwt(token);
 
     if (decodeToken.isPremium) {
+        downloadHistory();
         showPremiumUser();
     }
 
-    axios.get(`${url}/expense/getExpenses`, { headers: { "Authorization": token } })
+    const page = 1;
+
+    getExpenses(page);
+
+    loadLeaderboard();
+});
+
+function getExpenses(page){
+    let token = localStorage.getItem('token');
+
+    axios.get(`${url}/expense/getExpenses?page=${page}`, { headers: { "Authorization": token } })
         .then((respond) => {
 
             if (respond.data.expenses.length === 0) {
                 document.getElementById('dashMsg').innerHTML = 'No data found !';
             } else {
+
+                document.getElementById('listExpenses').innerHTML='';
+                
                 document.getElementById('dashMsg').innerHTML = '';
                 for (var i = 0; i < respond.data.expenses.length; i++) {
                     showExpense(respond.data.expenses[i]);
                 }
+
+                showPagination(respond.data);
+
             }
         })
         .catch(err => console.log(err));
+}
 
-    loadLeaderboard();
-});
 
 function logOut() {
     localStorage.removeItem('token');
@@ -227,8 +243,6 @@ function loadLeaderboard() {
 
 function showLeaderboardElement(obj) {
 
-    console.log(obj);
-
     var name = obj.name;
     var amt = obj.total_amount;
 
@@ -260,3 +274,111 @@ function showLeaderboardElement(obj) {
 
 
 }
+
+function downloadReport(e){
+    e.preventDefault();
+
+    const token = localStorage.getItem('token');
+
+    axios.get(`${url}/expense/download`, {headers: {"Authorization" : token}})
+        .then(respond => {
+
+            if(respond.status === 200){
+                var a = document.createElement('a');
+                a.href = respond.data.fileURL;
+                a.download = 'myexpense.csv';
+                a.click();
+
+                let obj = {
+                    url: respond.data.fileURL
+                }
+
+                axios.post(`${url}/expense/saveURL`, obj, { headers: { "Authorization": token } })
+                    .then(response => {
+                        downloadHistory();
+                    })
+                    .catch(err => console.log(err));
+            }
+        }).catch(err => console.log(err));
+}
+
+function downloadHistory(){
+    let token = localStorage.getItem('token');
+
+    axios.get(`${url}/expense/showHistory`, { headers: { "Authorization": token } })
+        .then(respond => {
+
+            // console.log(respond.data.history);
+
+
+            for (var i = 0; i < respond.data.history.length; i++) {
+                showHistory(respond.data.history[i], i+1);
+            }
+
+        })
+        .catch(err => console.log(err));
+}
+
+function showHistory(obj , no){
+
+    let date = obj.createdAt;
+    date = date.substring(0,10);
+    date = date.split('-').reverse().join('-');
+
+    let url = obj.url;
+
+    var table = document.getElementById('reportGenTable');
+
+    var tr = document.createElement('tr');
+
+    var td = document.createElement('td');
+    td.appendChild(document.createTextNode(`${no}`));
+    tr.appendChild(td);
+    
+    var td1 = document.createElement('td');
+    td1.appendChild(document.createTextNode(`${date}`));
+    tr.appendChild(td1);
+
+    var td2 = document.createElement('td');
+    var a = document.createElement('a');
+    a.href = `${url}`;
+    a.appendChild(document.createTextNode(`${url}`));
+    td2.appendChild(a);
+    tr.appendChild(td2);
+
+    table.appendChild(tr);
+}
+
+function showPagination({currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage,}){
+
+        var pagination = document.getElementById('pagination');
+
+        pagination.innerHTML = '';
+
+        if (hasPreviousPage) {
+            const btn2 = document.createElement('button');
+            btn2.id = 'pageBtn';
+            btn2.innerHTML = previousPage;
+            btn2.addEventListener('click', () => getExpenses (previousPage));
+            pagination.appendChild(btn2)
+        }
+
+        const btn1 = document.createElement('button')
+        btn1.id = 'pageBtn';
+        btn1.innerHTML = `<h3>${currentPage}</h3>`
+        btn1.addEventListener('click', () => getExpenses (currentPage));
+        pagination.appendChild(btn1);
+
+        if (hasNextPage) {
+            const btn3= document.createElement('button');
+            btn3.id = 'pageBtn';
+            btn3.innerHTML = nextPage;
+            btn3.addEventListener('click', () => getExpenses (nextPage));
+            pagination.appendChild(btn3);
+        };
+    }
