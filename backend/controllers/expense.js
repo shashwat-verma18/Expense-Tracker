@@ -37,8 +37,9 @@ exports.addExpense = async (req, res, next) => {
 exports.getExpenses = async (req, res, next) => {
 
     const page = req.query.page || 1;
-    const PER_PAGE = 10;
-
+    const perPageLimit = req.query.perPage;
+    const perPage = Number(`${perPageLimit}`);
+    
 
     try {
 
@@ -47,16 +48,16 @@ exports.getExpenses = async (req, res, next) => {
         const expenses = await Expense.findAll({ 
             where: { userId: req.user.id },
             offset: (page-1) * 10,
-            limit: PER_PAGE
+            limit: perPage
         });
         res.status(200).json({ 
             expenses,
             currentPage: page,
-            hasNextPage: PER_PAGE*page < total,
+            hasNextPage: perPage*page < total,
             nextPage: +page + 1,
             hasPreviousPage: page > 1,
             previousPage: +page-1,
-            lastPage: Math.ceil(total / PER_PAGE),
+            lastPage: Math.ceil(total / perPage),
             success: true 
         });
     } catch (err) {

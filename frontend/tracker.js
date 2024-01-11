@@ -51,8 +51,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function getExpenses(page){
     let token = localStorage.getItem('token');
+    let limit = localStorage.getItem('perPage');
 
-    axios.get(`${url}/expense/getExpenses?page=${page}`, { headers: { "Authorization": token } })
+    axios.get(`${url}/expense/getExpenses?page=${page}&perPage=${limit}`, { headers: { "Authorization": token } })
         .then((respond) => {
 
             if (respond.data.expenses.length === 0) {
@@ -382,3 +383,13 @@ function showPagination({currentPage,
             pagination.appendChild(btn3);
         };
     }
+
+var perPage = document.getElementById('perPage');
+
+perPage.addEventListener("click", function() {
+
+    var val = document.getElementById('perPage').value;
+    localStorage.setItem('perPage', val);
+    getExpenses(1);
+
+});

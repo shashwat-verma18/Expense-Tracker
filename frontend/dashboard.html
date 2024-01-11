@@ -22,23 +22,28 @@
     </ul>
 
     <div class="container">
-<!-- 
-        <section class="overview">
-            <h3>Overview</h3>
 
-            <div id="overviews">
-                
-            </div>
-            
-        </section> -->
+        <div style="font-size: 13px; display: flex; float: right; height: min-content;">
+            <label style="margin-top:7px; margin-right: 7px; float: right;">Records per Page :</label>
+            <select id="perPage" style="width: max-content; height: max-content; margin: 0px;">
+                <option id="10" value="10">10</option>
+                <option id="25" value="25">25</option>
+                <option id="50" value="50">50</option>
+            </select>
+        </div>
+
 
         <section class="expenses">
-            <h3>Expenses</h3>
+            <h3 style="margin-top: 40px;">Expenses</h3>
             
             <p id='dashMsg' class="error-message"></p>
-            <ul id="listExpenses" class="listExpenses">
 
+            
+            <div>
+            <ul id="listExpenses" class="listExpenses">
+                
             </ul>
+            </div>
 
         </section>
 
